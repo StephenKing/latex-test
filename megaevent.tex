@@ -1,0 +1,143 @@
+
+%\documentclass[9pt,twocolumn,twoside,a4paper,conference]{IEEEtran}
+\documentclass[10pt,conference]{IEEEtran}
+
+%\newcommand{\wuespace}[1]{\vspace{#1}}
+\newcommand{\wuespace}[1]{\vspace{0cm}}
+
+% title and authors
+%\newcommand{\mytitle}{POCO: A Framework for the Pareto-Optimal Resilient Controller Placement in {SDN}-based Core Networks}
+\newcommand{\mytitle}{Mega-Event}
+\newcommand{\mytitlepdf}{\mytitle}
+\newcommand{\myauthors}{Steffen Gebert$^*$, David Hock$^*$, Thomas Zinner$^*$, Ernst-Dieter Schmitt$^\S$, Marco Hoffmann$^\S$, Ralf-Peter Braun$^\ddag$}
+
+% packages
+\usepackage{cite}
+\usepackage[pdftex,
+  pdfnewwindow=true,
+  pdfstartview=FitH, % Fit Width 
+  pdfpagemode=UseOutlines,
+  plainpages=false,
+  colorlinks=true,
+  breaklinks=true,
+  linkcolor=black,
+  filecolor=black,
+  anchorcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdfprintscaling=None,
+  pdfdisplaydoctitle=true,
+]{hyperref}
+\hypersetup{
+ pdfauthor = {\myauthors},
+ pdftitle = {\mytitlepdf},
+ pdfsubject = {\mytitlepdf},
+ pdfkeywords ={SDN}
+}
+%\usepackage{colortbl}
+\usepackage{amsmath,amssymb}
+\usepackage{moreverb}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{units}
+\usepackage{xcolor}
+\usepackage{paralist}
+\usepackage{xspace}
+\usepackage{todonotes}
+\usepackage[autolanguage,np]{numprint}
+%\usepackage{flushend}
+\usepackage{wrapfig}
+\usepackage[space]{grffile}
+\pdfminorversion=6
+\IEEEoverridecommandlockouts
+
+%% INFOCOM 2013 addition:
+\makeatletter
+\def\ps@headings{%
+\def\@oddhead{\mbox{}\scriptsize\rightmark \hfil }% \thepage
+\def\@evenhead{\scriptsize\thepage \hfil \leftmark\mbox{}}%
+\def\@oddfoot{}%
+\def\@evenfoot{}}
+\makeatother
+\pagestyle{headings}
+
+%% Abbreviations
+\newcommand\maxlat[1]{\pi^\mathsf{max\ latency}_{\mathcal{#1}}}
+\newcommand\maxlatnorm[1]{\pi^\mathsf{max\ latency}_{#1}}
+\newcommand\maxlatcc[1]{\pi^\mathsf{controller\text{-}latency}_{\mathcal{#1}}}
+\newcommand\optmaxlat[1]{\underline{\pi}^\mathsf{max\ latency}_{\mathcal{#1}}}
+\newcommand\placement{\mathcal{P}}
+\newcommand\bestmaxlat[1]{\placement^\mathsf{max\ latency}_{\mathcal{#1}}}
+\newcommand\avglat[1]{\pi^\mathsf{avg\ latency}_{\mathcal{#1}}}
+\newcommand\bestavglat[1]{\placement^\mathsf{avg\ latency}_{\mathcal{#1}}}
+\newcommand\bal[1]{\pi^\mathsf{imbalance}_{\mathcal{#1}}}
+\newcommand\bestbal[1]{\placement^\mathsf{imbalance}_{\mathcal{#1}}}
+\newcommand\contless[1]{\pi^\mathsf{controller\text{-}less}_{\mathcal{#1}}}
+\newcommand\bestcontless[1]{\placement^\mathsf{controller\text{-}less}_{\mathcal{#1}}}
+\newcommand\optavglat[1]{\underline{\pi}^\mathsf{avg\ latency}_{\mathcal{#1}}}
+\newcommand\optbal[1]{\underline{\pi}^\mathsf{imbalance}_{\mathcal{#1}}}
+\newcommand\optcontless[1]{\underline{\pi}^\mathsf{controller\text{-}less}_{\mathcal{#1}}}
+
+\newcommand\optneutral[1]{\underline{\pi}^\mathsf{metric}_{\mathcal{#1}}}
+\newcommand\bestneutral[1]{\placement^\mathsf{metric}_{\mathcal{#1}}}
+\newcommand\neutral[1]{\pi^\mathsf{metric}_{\mathcal{#1}}}
+\newcommand\dist{\mathbf{dist}}
+
+\newcommand\OSE{\emph{OS$^3$E}\ }
+\newcommand\POCO{\emph{POCO}}
+\newcommand\POCOPLC{\emph{POCO-PLC}}
+
+\newcommand\fig[1]{Figure~\ref{fig:#1}}
+
+% specify abbreviations here
+% additional macros
+\newcommand{\figpdf}[5]
+{
+\begin{figure}[htb!]
+ \wuespace{#1}
+      \begin{center}
+	\includegraphics[width=1\columnwidth]{figures/#5}
+        \caption{#4}\label{fig:#3}
+      \end{center}
+ \wuespace{#2}
+\end{figure}
+}
+
+\newcommand{\twofigpdfhor}[8]
+{
+\begin{figure}[t!]
+ \wuespace{#1}
+      \begin{center}
+	\subfigure[#6]{\includegraphics[height=.60\columnwidth]{figures/#5}\label{fig:#5}}\hfill
+	\subfigure[#8]{\includegraphics[height=.60\columnwidth]{figures/#7}\label{fig:#7}}
+        \caption{#4}\label{fig:#3}
+      \end{center}
+ \wuespace{#2}
+\end{figure}
+}
+
+% begin document
+\begin{document}
+
+\title{\mytitle}
+\author{\IEEEauthorblockN{\myauthors}
+\IEEEauthorblockA{$^*$University of W\"urzburg, Institute of Computer Science, W\"urzburg, Germany\\$^\S$Nokia Solutions and Networks Management International GmbH, Munich, Germany\\ $^\ddag$Deutsche Telekom T-Labs, Berlin, Germany\\
+\{hock,steffen.gebert,zinner,trangia\}@informatik.uni-wuerzburg.de}
+%\thanks{This work has been performed in the framework of the CELTIC EUREKA project SASER-SIEGFRIED (Project ID CPP2011/2-5), and it is partly funded by the BMBF (Project ID 16BP12308). The authors alone are responsible for the content of the paper.}
+}
+
+\maketitle
+
+
+
+Zwei Figures: Eine Mega-Event-Szenario, die andere technische Struktur mit VMs, CAM, POCO etc.
+
+
+\section{Introduction}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{megaevent}
+
+\end{document}
